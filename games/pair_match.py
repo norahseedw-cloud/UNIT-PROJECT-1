@@ -1,72 +1,102 @@
 import random
 from base_game import Game
 
-
 class PairMatch(Game):
 
+    def pairs(self, count):
+        letters = ["A", "B", "C", "D", "E"]
+        selected_letters = letters[:count]
 
-
-    def pairs(self):
-        letters = ["A","B","C"]
-        numbers = [random.randint(0,100) for _ in range(3)]
-
-        self.pairs_dict = dict(zip(letters, numbers))
+        numbers = [random.randint(0, 100) for _ in range(count)]
+        self.pairs_dict = dict(zip(selected_letters, numbers))
 
         for letter, number in self.pairs_dict.items():
             print(f"{letter} - {number}")
 
-   
 
+    def play_level(self, count):
 
+        round_number = 1
 
+        while True:
 
-    def play_pair_match(self):
-        self.pairs()
-        self.timer(5)
-        self.clear_screen()
+            print(f"\n--- Round {round_number} ---")
 
-        ask_for_answer = int(input("What was with A: "))
-        """  try:
-            if not ask_for_answer:
-                raise Exception("The answer can't be empty")
+            self.pairs(count)
+            self.timer(5)
+            self.clear_screen()
 
-            if not ask_for_answer.isdigit():
-                raise Exception("The answer must be numbers only")
+            attempts = 3
+            correct_letters = {letter: False for letter in self.pairs_dict}
 
-            if len(ask_for_answer) != digits_level:
-                raise Exception(f"The answer must be exactly {digits_level} numbers")
+            while attempts > 0:
 
-        except Exception as e:
-            print(e)"""
-            
-        
+                self.display_header("Pair Matching", attempts)
+                score_this_round = 0
 
-        if ask_for_answer == self.pairs_dict["A"]:
-            self.correct()
-        else:
-            self.incorrect(3)
-            
-       
+                try:
+                    for letter in self.pairs_dict:
 
+                        if not correct_letters[letter]:
+
+                            ask = int(input(f"What number was with {letter}: "))
+
+                            if ask == self.pairs_dict[letter]:
+                                print(f"{letter} is correct!")
+                                correct_letters[letter] = True
+                                score_this_round += 1
+                            else:
+                                print(f"{letter} is incorrect!")
+
+                except ValueError:
+                    print("Please enter numbers only!")
+                    continue
+
+                self.score += score_this_round
+
+                if all(correct_letters.values()):
+                    print("All answers are correct! Very Good")
+                    break
+
+                attempts -= 1
+
+                if attempts > 0:
+                    print("Try again!")
+                else:
+                    print("Unfortunately, all your attempts have failed this round.")
+                    for letter, number in self.pairs_dict.items():
+                        print(f"{letter}: {number}")
+
+            print(f"Your score: {self.score}")
+
+            choice = input("Do you want another round? (y/n): ").lower()
+
+            if choice != "y":
+                print(f"\nYour final score is: {self.score}")
+                print("Thanks for playing! Goodbye.")
+                break
+
+            round_number += 1
+
+    def easy_level(self):
+        self.level="Easy"
+        self.play_level(2)
+
+    def medium_level(self):
+        self.level="Medium"
+        self.play_level(3)
+
+    def hard_level(self):
+      self.level="Hard"
+      self.play_level(4)    
 
     def display_game(self):
-        print("_"*35)
-        print("Pair Matching".center(35))
-        print("_"*35)
-        self.display_header(3)
-        print("-"*35)
-        print("Memorize the pairs: ")
-        self.play_pair_match()
         
-
+        self.choose_level(self.easy_level, self.medium_level, self.hard_level)
 
     def play(self):
         self.Secound_main(self.display_game, self.display_game)
 
 
-
-
-
-pair_match1=PairMatch()
-
+pair_match1 = PairMatch()
 pair_match1.play()
