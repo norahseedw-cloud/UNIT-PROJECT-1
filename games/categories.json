@@ -1,0 +1,26 @@
+{
+  "easy": [
+    {
+      "category": "Fruits",
+      "words": ["apple", "banana", "orange"]
+    },
+    {
+      "category": "Animals",
+      "words": ["cat", "dog", "lion"]
+    }
+  ],
+
+  "medium": [
+    {
+      "category": "Countries",
+      "words": ["france", "brazil", "japan", "canada"]
+    }
+  ],
+
+  "hard": [
+    {
+      "category": "Sports",
+      "words": ["football", "tennis", "cricket", "golf", "basketball"]
+    }
+  ]
+}
