@@ -1,0 +1,82 @@
+{
+  "easy": [
+    {
+      "story": "Ali went to the market to buy apples. On the way he met his friend Omar.",
+      "questions": [
+        {"question": "Where did Ali go?", "answer": "market"},
+        {"question": "Who did he meet?", "answer": "omar"}
+      ]
+    },
+    {
+      "story": "Sara has a small cat named Luna. Every morning Luna waits near the door.",
+      "questions": [
+        {"question": "What is the cat's name?", "answer": "luna"},
+        {"question": "Where does Luna wait?", "answer": "door"}
+      ]
+    },
+    {
+      "story": "Ahmed likes to read books before sleeping. His favorite place is the living room.",
+      "questions": [
+        {"question": "What does Ahmed like to do?", "answer": "read"},
+        {"question": "Where does he read?", "answer": "living room"}
+      ]
+    }
+  ],
+
+  "medium": [
+    {
+      "story": "Yesterday Sara went to the library to study for her exam. She borrowed two books and studied for three hours.",
+      "questions": [
+        {"question": "Where did Sara go?", "answer": "library"},
+        {"question": "How many books did she borrow?", "answer": "two"},
+        {"question": "How long did she study?", "answer": "three hours"}
+      ]
+    },
+    {
+      "story": "Omar visited his grandmother last weekend. They cooked dinner together and watched a movie.",
+      "questions": [
+        {"question": "Who did Omar visit?", "answer": "grandmother"},
+        {"question": "What did they cook?", "answer": "dinner"},
+        {"question": "What did they watch?", "answer": "movie"}
+      ]
+    },
+    {
+      "story": "Mona went to the park with her sister. They played basketball and drank orange juice.",
+      "questions": [
+        {"question": "Where did Mona go?", "answer": "park"},
+        {"question": "Who went with Mona?", "answer": "sister"},
+        {"question": "What did they drink?", "answer": "orange juice"}
+      ]
+    }
+  ],
+
+  "hard": [
+    {
+      "story": "Last weekend Ahmed and his friends went hiking in the mountains. They walked for three hours and set up a camp near a lake.",
+      "questions": [
+        {"question": "Where did Ahmed go?", "answer": "mountains"},
+        {"question": "How long did they walk?", "answer": "three hours"},
+        {"question": "Where did they camp?", "answer": "lake"},
+        {"question": "Who went with Ahmed?", "answer": "friends"}
+      ]
+    },
+    {
+      "story": "Sara planned a picnic with her family. They brought sandwiches, fruit, and juice to the park.",
+      "questions": [
+        {"question": "What did Sara plan?", "answer": "picnic"},
+        {"question": "Who went with Sara?", "answer": "family"},
+        {"question": "Where did they go?", "answer": "park"},
+        {"question": "What drink did they bring?", "answer": "juice"}
+      ]
+    },
+    {
+      "story": "Omar traveled to Dubai for a business meeting. After the meeting he visited a museum and ate dinner at a restaurant.",
+      "questions": [
+        {"question": "Where did Omar travel?", "answer": "dubai"},
+        {"question": "Why did he travel?", "answer": "meeting"},
+        {"question": "Where did he go after the meeting?", "answer": "museum"},
+        {"question": "Where did he eat dinner?", "answer": "restaurant"}
+      ]
+    }
+  ]
+}
