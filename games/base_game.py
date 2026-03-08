@@ -5,11 +5,20 @@ class Game:
     levels = ["Easy", "Medium", "Hard"]
 
     def __init__(self):
-        self.level = "Easy"
+        self.level = "Easy" 
         self.score = 0
 
 
     def display_header(self,name_of_game:str, attempts=None):
+        """
+        This function displays the game header including the game name,
+        current level, score, and optionally the remaining attempts.
+        ---------------
+        name_of_game : str
+            The name of the game displayed at the top of the header.
+        attempts : int, optional
+            The number of attempts left. If provided, it will be displayed.
+        """
         print("_"*35)
         print(name_of_game.center(35))
         print("_"*35)
@@ -20,11 +29,22 @@ class Game:
             print("-"*35)
 
     def correct(self):
+        """
+    Increases the player's score by one when the answer is correct.
+    Then displays a confirmation message and the updated score.
+    """
         self.score += 1
         print("Correct!")
         print(f"Score: {self.score}")
 
     def incorrect(self, attempts):
+        """
+    This function displays a message when the user's answer is incorrect
+    and shows the remaining attempts.
+    ---------------
+    attempts : int
+        The number of attempts left after the incorrect answer.
+    """
         print("Incorrect!")
         print(f"Attempts Left: {attempts}")
 
@@ -41,11 +61,11 @@ class Game:
         Function to execute when the user selects the Hard level.
         '''
         menu_level = '''
-Choose mode: 
-1- Easy Level
-2- Medium Level
-3- Hard Level
-4- Go back to main menu
+Select a level:
+1- Easy
+2- Medium
+3- Hard
+4- Back 
 '''
         while True:
 
@@ -70,6 +90,15 @@ Choose mode:
                     print("Enter a valid number")
 
     def get_choice(self, message, valid_choices):
+        """
+This function asks the user a question and ensures the input
+matches one of the valid choices.
+---------------
+message : str
+    The question displayed to the user.
+valid_choices : list
+    The allowed inputs the user can enter.
+"""
 
         while True:
             try:
@@ -85,45 +114,49 @@ Choose mode:
     
 
     def timer(self, seconds):
+        """
+    This function displays a countdown timer for the user
+    to memorize information before it disappears.
+    ---------------
+    seconds : int
+        The number of seconds for the countdown.
+    """
         for n in range(seconds, 0, -1):
-            print(f"\rMemorize... {n}", end="")
+            print(f"\rTime left: {n}", end="")
             time.sleep(1)
         print()
 
     def clear_screen(self):
+        """
+    This function clears the terminal screen depending
+    on the operating system being used.
+    """
         os.system("cls" if os.name=="nt" else "clear")
 
-    
-    '''def level_up(self):
 
-        if self.correct_answer >= 2:
-
-            current_index = self.levels.index(self.level)
-
-            if current_index < len(self.levels) - 1:
-                self.level = self.levels[current_index + 1]
-                print(f"\nLevel Up! Now you are in {self.level}")
-
-            self.correct_answer = 0
-            return True
-
-        else:
-            print("Sorry, you can't move to the next level. Try again.")
-            self.correct_answer = 0
-            return False'''
 
     def Secound_main(self,play_screen,practice_screen):
+        """
+    This function displays a menu for the user to choose a mode
+    (Play or Practice) and calls the corresponding function.
+    ---------------
+    play_screen : callable
+        Function executed when the user selects Play mode.
+    practice_screen : callable
+        Function executed when the user selects Practice mode.
+    """
 
-        menu_mood = '''
-Choose mode: 
-1- Play
-2- Practice
-3- Go back
+        menu_mode = '''
+Select a mode
+------------
+1- Play (Score will be saved)
+2- Practice (Score will not be saved)
+3- Back
 '''
 
         while True:
 
-            user_choice = input(menu_mood)
+            user_choice = input(menu_mode)
 
             match user_choice:
 
@@ -134,7 +167,6 @@ Choose mode:
                     practice_screen()
 
                 case "3":
-                    print("Go back")
                     break
 
                 case _:
