@@ -1,139 +1,154 @@
-import os
 import random
 from base_game import Game
 
 
 class NumberRecall(Game):
 
-    levels = ["Easy", "Medium", "Hard"]
+    def generate_number(self, digits):
+        """
+    This function generates a random number with a specific number
+    of digits and displays it spaced out for the user to memorize.
+    ---------------
+    digits : int
+        The number of digits to generate in the random number.
+    """
+        number = ""
+        for _ in range(digits):
+            number += str(random.randint(0, 9))
 
-    level_settings = {
-        "Easy": {"digits": 3, "attempts": 3},
-        "Medium": {"digits": 5, "attempts": 2},
-        "Hard": {"digits": 7, "attempts": 1}
-    }
+        self.number_to_remember = number
 
-    rounds = 3
-
-    def level_up(self):
-
-        if self.correct_answer >= 2:
-
-            current_index = self.levels.index(self.level)
-
-            if current_index < len(self.levels) - 1:
-                self.level = self.levels[current_index + 1]
-                print(f"\nLevel Up! Now you are in {self.level}")
-
-            self.correct_answer = 0
-            return True
-
-        else:
-            print("Sorry, you can't move to the next level. Try again.")
-            self.correct_answer = 0
-            return False
+        display_number = " ".join(number)  
+        print(f"\nRemember this number:\n{display_number}")
 
 
-    def play(self):
+    def play_level(self, digits, attempts):
+        """
+    Runs a round of the Number Recall game.
+    The player memorizes a number and tries to recall it.
 
-        digits_level = self.level_settings[self.level]["digits"]
-        attempts = self.level_settings[self.level]["attempts"]
+    ---------------
+    digits : int
+        Number of digits in the generated number.
+    attempts : int
+        Number of attempts allowed for the player.
+    """
+        while True:
+            try:
+                choice = input("Press Enter to start \n(Enter 0 to go back)\n ")
 
-        choice = input("Press Enter to start \n(Enter 0 to go back)\n> ")
-        if choice == "0":
-            return
-
-        self.correct_answer = 0
-
-        for r in range(1, self.rounds + 1):
-
-            if r > 1:
-                input("\nPress Enter to start the next round...")
-
-            self.display_header(attempts)
-            print(f"\nRound {r}/{self.rounds}")
-
-            real_number = "".join([str(random.randint(0, 9)) for _ in range(digits_level)])
-            display_numbers = " ".join(real_number)
-
-            print("\nMemorize this number:\n")
-            print(display_numbers)
-
-            self.timer(5)
-            self.clear_screen()
-
-            current_attempts = attempts
-
-            while current_attempts > 0:
-
-                ask_for_answer = input("What was the number? ")
-
-                try:
-                    if not ask_for_answer:
-                        raise Exception("The answer can't be empty")
-
-                    if not ask_for_answer.isdigit():
-                        raise Exception("The answer must be numbers only")
-
-                    if len(ask_for_answer) != digits_level:
-                        raise Exception(f"The answer must be exactly {digits_level} numbers")
-
-                except Exception as e:
-                    print(e)
-                    continue
-
-                if ask_for_answer == real_number:
-
-                    self.correct()
-                    self.correct_answer += 1
+                if choice == "":
                     break
 
-                else:
+                if choice == "0":
+                    return
 
-                    current_attempts -= 1
-                    self.incorrect(current_attempts)
+                raise ValueError("Please enter a valid input")
 
-            if current_attempts == 0:
-                print("\nNo attempts left")
-                print(f"The correct number was: {real_number}")
+            except ValueError as e:
+                print(e)
 
-        level_passed = self.level_up()
-
-        if level_passed:
-            print("\nStarting next level...")
-            self.play()
-        else:
-            return
-
-
-    def main_number(self):
-
-        menu = '''
-Choose mode: 
-1- Play
-2- Practice
-3- Go back
-'''
+        round_number = 1
 
         while True:
 
-            user_choice = input(menu)
+            print(f"\n--- Round {round_number} ---")
 
-            match user_choice:
+            self.generate_number(digits)
+            self.timer(5)
+            self.clear_screen()
 
-                case "1":
-                    self.play()
+            attempts_left = attempts
 
-                case "2":
-                    self.play()
+            while attempts_left > 0:
 
-                case "3":
-                    print("Go back")
+                self.display_header("Number Recall", attempts_left)
+
+                user_answer = input("Enter the number: ")
+
+                if user_answer == self.number_to_remember:
+                    print("Correct!")
+                    self.score += 1
+                    break
+                else:
+                    print("Incorrect!")
+
+                attempts_left -= 1
+
+                if attempts_left > 0:
+                    print("Wrong! Try again..")
+                else:
+                    print(f"The correct number was {self.number_to_remember}")
+
+            print(f"Your score: {self.score}")
+
+            choice = self.get_choice("Play another round? (y/n): ", ["y", "n"])
+
+            if choice == "n":
+                print(f"\nFinal score: {self.score}")
+                print("Thanks for playing!")
+                break
+
+            round_number += 1
+
+
+    def easy_level(self):
+        self.level = "Easy"
+        self.play_level(3, 3)  
+
+    def medium_level(self):
+        self.level = "Medium"
+        self.play_level(5, 3)  
+
+
+    def hard_level(self):
+        self.level = "Hard"
+        self.play_level(7, 3)   
+
+
+    def practice(self):
+
+        print("--- Practice Mode ---")
+        print("You will see a number for a few seconds.")
+        print("Try to remember it and type it after the screen clears.\n")
+
+        while True:
+            try:
+                choice = input("Press Enter to start \n(Enter 0 to go back)\n ")
+
+                if choice == "":
                     break
 
-                case _:
-                    print("Enter a valid number")
+                if choice == "0":
+                    return
+
+                raise Exception("Please enter a valid input")
+
+            except Exception as e:
+                print(e)
+
+        self.generate_number(3)
+        self.timer(5)
+        self.clear_screen()
+
+        user_answer = input("Enter the number: ")
+
+        if user_answer == self.number_to_remember:
+            print("Correct!")
+        else:
+            print("Incorrect!")
+            print(f"The correct number was {self.number_to_remember}")
+
+        print("Practice finished!")
 
 
-numberuu = NumberRecall()
-numberuu.main_number()
+    def display_game(self):
+        self.choose_level(self.easy_level, self.medium_level, self.hard_level)
+
+
+    def play(self):
+        self.Secound_main(self.display_game, self.practice)
+
+
+number_game = NumberRecall()
+number_game.play()

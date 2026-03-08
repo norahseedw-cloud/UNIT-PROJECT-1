@@ -4,17 +4,44 @@ from base_game import Game
 class PairMatch(Game):
 
     def pairs(self, count):
+        """
+    This function generates letter-number pairs for the player to memorize.
+    ---------------
+count : int
+        The number of pairs to generate.
+    """
         letters = ["A", "B", "C", "D", "E"]
         selected_letters = letters[:count]
 
-        numbers = [random.randint(0, 100) for _ in range(count)]
-        self.pairs_dict = dict(zip(selected_letters, numbers))
+        numbers = [random.randint(0, 100) for _ in range(count)] # Random number
+        self.pairs_dict = dict(zip(selected_letters, numbers)) # To add two together 
 
         for letter, number in self.pairs_dict.items():
             print(f"{letter} - {number}")
 
 
     def play_level(self, count):
+        """
+    Runs a round of the Pair Matching game.
+    The player memorizes letter-number pairs and tries to recall them.
+    ---------------
+    count : int
+        Number of letter-number pairs shown to the player.
+    """
+        while True:
+            try:
+                choice = input("Press Enter to start \n(Enter 0 to go back)\n ")
+
+                if choice == "":
+                    break  
+
+                if choice == "0":
+                    return 
+
+                raise ValueError("Please enter a valid input")
+
+            except ValueError as e:
+                print(e)
 
         round_number = 1
 
@@ -33,7 +60,6 @@ class PairMatch(Game):
 
                 self.display_header("Pair Matching", attempts)
                 score_this_round = 0
-
                 try:
                     for letter in self.pairs_dict:
 
@@ -55,7 +81,7 @@ class PairMatch(Game):
                 self.score += score_this_round
 
                 if all(correct_letters.values()):
-                    print("All answers are correct! Very Good")
+                    print("All answers are correct!")
                     break
 
                 attempts -= 1
@@ -69,11 +95,11 @@ class PairMatch(Game):
 
             print(f"Your score: {self.score}")
 
-            choice = input("Do you want another round? (y/n): ").lower()
+            choice = self.get_choice("Play another round? (y/n):: ", ["y", "n"])
 
-            if choice != "y":
-                print(f"\nYour final score is: {self.score}")
-                print("Thanks for playing! Goodbye.")
+            if choice == "n":
+                print(f"\nFinal score:: {self.score}")
+                print("Thanks for playing!")
                 break
 
             round_number += 1
@@ -88,14 +114,57 @@ class PairMatch(Game):
 
     def hard_level(self):
       self.level="Hard"
-      self.play_level(4)    
+      self.play_level(4)   
+
+
+    def practice(self):
+
+        print("--- Practice Mode ---")
+        print("You will see letters with numbers for a few seconds.")
+        print("Try to remember the number with each letter.")
+        print("After the screen clears, type the correct number.\n")
+        while True:
+            try:
+                choice = input("Press Enter to start \n(Enter 0 to go back)\ ")
+
+                if choice == "":
+                    break   
+
+                if choice == "0":
+                    return  
+
+                raise Exception("Please enter a valid input")
+
+            except Exception as e:
+                print(e)
+
+
+        self.pairs(2)  
+        self.timer(5)
+        self.clear_screen()
+
+        try:
+            for letter in self.pairs_dict:
+
+                ask = int(input(f"What number was with {letter}: "))
+
+                if ask == self.pairs_dict[letter]:
+                    print(f"{letter} is correct!")
+                else:
+                    print(f"{letter} is incorrect!")
+                    print(f"The correct number was {self.pairs_dict[letter]}")
+
+        except ValueError:
+            print("Please enter numbers only!")
+
+        print("Practice finished!") 
 
     def display_game(self):
         
         self.choose_level(self.easy_level, self.medium_level, self.hard_level)
 
     def play(self):
-        self.Secound_main(self.display_game, self.display_game)
+        self.Secound_main(self.display_game, self.practice)
 
 
 pair_match1 = PairMatch()
