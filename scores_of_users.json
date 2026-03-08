@@ -1,10 +1,7 @@
 {
-    "norah": {
+    "notah": {
         "Number Recall": {
-            "1": "Easy"
-        },
-        "Pair Match": {
-            "2": "Easy"
+            "Easy": 1
         }
     }
 }

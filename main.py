@@ -2,6 +2,7 @@ from games.number_recall import NumberRecall
 from games.pair_match import PairMatch
 from games.category_recall import CategoryRecall
 from games.story_recall import StoryRecall
+from summary import show_summary
 
 
 username=input("Welcome to (game name) \n pleas enter your name: ").strip().lower()
@@ -64,7 +65,7 @@ while True:
             game_screen()
 
         case "2":
-            print("View summary")
+            show_summary(username)
 
         case "3":
             break

@@ -115,7 +115,7 @@ difficulty : str
 
             if choice == "n":
                 print(f"\nFinal score: {self.score}")
-                save_score(self.username, "Story Recall", self.score,self.level)
+                save_score(self.username, "Story Recall", self.level,self.score)
                 print("Thanks for playing!")
                 break
 

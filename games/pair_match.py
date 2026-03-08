@@ -103,7 +103,7 @@ count : int
 
             if choice == "n":
                 print(f"\nFinal score: {self.score}")
-                save_score(self.username, "Pair Match", self.score, self.level)
+                save_score(self.username, "Pair Match", self.level,self.score)
                 print("Thanks for playing!")
                 break
 

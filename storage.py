@@ -21,3 +21,9 @@ def save_score(username, game_name, level, score):
 
     with open(FILE_NAME, "w") as file:
         json.dump(data, file, indent=4)
+
+def load_scores():
+    if os.path.exists(FILE_NAME):
+        with open(FILE_NAME, "r") as file:
+            return json.load(file)
+    return {}
