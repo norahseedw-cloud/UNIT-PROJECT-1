@@ -1,18 +1,25 @@
 import json
 import random
-from base_game import Game
+from games.base_game import Game
+from storage import save_score
 
 
 class StoryRecall(Game):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, username):
+        super().__init__(username)
 
         with open("games/stories.json", "r") as file:
             self.stories = json.load(file)
 
 
     def show_story(self, story):
+        """
+Displays the story for the player to memorize.
+---------------
+story : str
+    The story shown to the player.
+"""
 
         self.display_header("Story Recall")
 
@@ -24,6 +31,12 @@ class StoryRecall(Game):
 
 
     def ask_questions(self, questions):
+        """
+Asks the player questions about the memorized story.
+---------------
+questions : list
+    List of questions and their correct answers.
+"""
 
         for q in questions:
 
@@ -54,6 +67,12 @@ class StoryRecall(Game):
 
 
     def play_level(self, difficulty):
+        """
+Runs a round of the Story Recall game.
+---------------
+difficulty : str
+    The selected difficulty level for the story.
+"""
 
         self.score = 0
 
@@ -92,11 +111,12 @@ class StoryRecall(Game):
 
             print(f"Your score: {self.score}\n")
 
-            choice = self.get_choice("Do you want another round? (y/n): ", ["y", "n"])
+            choice = self.get_choice("Play another round? (y/n):  ", ["y", "n"])
 
             if choice == "n":
-                print(f"\nYour final score is: {self.score}")
-                print("Thanks for playing! Goodbye.")
+                print(f"\nFinal score: {self.score}")
+                save_score(self.username, "Story Recall", self.score,self.level)
+                print("Thanks for playing!")
                 break
 
             round_number += 1
@@ -122,6 +142,20 @@ class StoryRecall(Game):
         print("--- Practice Mode ---")
         print("You will read a short story.")
         print("Try to remember the details.\n")
+        while True:
+            try:
+                choice = input("Press Enter to start \n(Enter 0 to go back)\n ")
+
+                if choice == "":
+                    break
+
+                if choice == "0":
+                    return
+
+                raise Exception("Please enter a valid input")
+
+            except Exception as e:
+                print(e)
 
         story_data = random.choice(self.stories["easy"])
 
@@ -142,5 +176,3 @@ class StoryRecall(Game):
         self.Secound_main(self.display_game, self.practice)
 
 
-story_game = StoryRecall()
-story_game.play()

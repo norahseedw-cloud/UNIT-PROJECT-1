@@ -1,8 +1,10 @@
 import random
-from base_game import Game
-
-
+from games.base_game import Game
+from storage import save_score
 class NumberRecall(Game):
+
+    def __init__(self, username):
+        super().__init__(username)
 
     def generate_number(self, digits):
         """
@@ -86,6 +88,7 @@ class NumberRecall(Game):
 
             if choice == "n":
                 print(f"\nFinal score: {self.score}")
+                save_score(self.username, "Number Recall", self.score,self.level)
                 print("Thanks for playing!")
                 break
 
@@ -150,5 +153,3 @@ class NumberRecall(Game):
         self.Secound_main(self.display_game, self.practice)
 
 
-number_game = NumberRecall()
-number_game.play()

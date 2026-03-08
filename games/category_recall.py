@@ -1,18 +1,27 @@
 import json
 import random
-from base_game import Game
+from games.base_game import Game
+from storage import save_score
 
 
 class CategoryRecall(Game):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self,username):
+        super().__init__(username)
 
         with open("games/categories.json", "r") as file:
             self.categories = json.load(file)
 
 
     def show_words(self, category, words):
+        """
+Displays the category and words for the player to memorize.
+---------------
+category : str
+    The category shown to the player.
+words : list
+    Words related to the category to memorize.
+"""
 
         self.display_header("Category Recall")
 
@@ -27,7 +36,14 @@ class CategoryRecall(Game):
 
 
     def ask_words(self, words):
+        """
+Asks the player to recall words from the memorized list.
+---------------
+words : list
+    The list of words the player should remember.
+"""
 
+        original_words = words.copy()
         attempts = len(words)
 
         for i in range(len(words)):
@@ -52,6 +68,10 @@ class CategoryRecall(Game):
                 print("Correct!")
                 self.score += 1
                 words.remove(answer)
+
+            elif answer in original_words:
+                print("You already used this word!")
+
             else:
                 print("Wrong!")
 
@@ -72,12 +92,18 @@ class CategoryRecall(Game):
 
 
     def play_level(self, difficulty):
+        """
+Runs a round of the Category Recall game.
+---------------
+difficulty : str
+    The selected difficulty level for the game.
+"""
 
         self.score = 0
 
         while True:
             try:
-                choice = input("Press Enter to start \n(Enter 0 to go back)\n> ")
+                choice = input("Press Enter to start \n(Enter 0 to go back)\n ")
 
                 if choice == "":
                     break
@@ -110,11 +136,12 @@ class CategoryRecall(Game):
 
             print(f"Your score: {self.score}\n")
 
-            choice = self.get_choice("Do you want another round? (y/n): ", ["y", "n"])
+            choice = self.get_choice("Play another round? (y/n): ", ["y", "n"])
 
             if choice == "n":
-                print(f"\nYour final score is: {self.score}")
-                print("Thanks for playing! Goodbye.")
+                print(f"\nFinal score: {self.score}")
+                save_score(self.username, "Category Recall", self.score,self.level)
+                print("Thanks for playing!")
                 break
 
             round_number += 1
@@ -141,6 +168,21 @@ class CategoryRecall(Game):
         print("You will see some words from a category.")
         print("Try to remember them.\n")
 
+        while True:
+            try:
+                choice = input("Press Enter to start \n(Enter 0 to go back)\n ")
+
+                if choice == "":
+                    break
+
+                if choice == "0":
+                    return
+
+                raise Exception("Please enter a valid input")
+
+            except Exception as e:
+                print(e)
+
         data = random.choice(self.categories["easy"])
 
         self.show_words(data["category"], data["words"].copy())
@@ -160,8 +202,6 @@ class CategoryRecall(Game):
         self.Secound_main(self.display_game, self.practice)
 
 
-category_game = CategoryRecall()
-category_game.play()
 
 
 
@@ -169,4 +209,3 @@ category_game.play()
 #الدزاين
 #اعدل اسامي الدوال 
 #اضافه كومنت 
-#اضافه كاتقوىي مع الهيدر

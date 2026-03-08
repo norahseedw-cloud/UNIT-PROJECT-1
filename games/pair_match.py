@@ -1,7 +1,11 @@
 import random
-from base_game import Game
+from games.base_game import Game
+from storage import save_score
 
 class PairMatch(Game):
+
+    def __init__(self, username):
+        super().__init__(username)
 
     def pairs(self, count):
         """
@@ -95,10 +99,11 @@ count : int
 
             print(f"Your score: {self.score}")
 
-            choice = self.get_choice("Play another round? (y/n):: ", ["y", "n"])
+            choice = self.get_choice("Play another round? (y/n): ", ["y", "n"])
 
             if choice == "n":
-                print(f"\nFinal score:: {self.score}")
+                print(f"\nFinal score: {self.score}")
+                save_score(self.username, "Pair Match", self.score, self.level)
                 print("Thanks for playing!")
                 break
 
@@ -167,5 +172,3 @@ count : int
         self.Secound_main(self.display_game, self.practice)
 
 
-pair_match1 = PairMatch()
-pair_match1.play()

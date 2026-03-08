@@ -7,20 +7,64 @@
     {
       "category": "Animals",
       "words": ["cat", "dog", "lion"]
+    },
+    {
+      "category": "Colors",
+      "words": ["red", "blue", "green"]
+    },
+    {
+      "category": "Sports",
+      "words": ["tennis", "golf", "boxing"]
+    },
+    {
+      "category": "Countries",
+      "words": ["japan", "brazil", "italy"]
     }
   ],
 
   "medium": [
     {
+      "category": "Fruits",
+      "words": ["apple", "banana", "orange", "mango"]
+    },
+    {
+      "category": "Animals",
+      "words": ["tiger", "elephant", "zebra", "giraffe"]
+    },
+    {
+      "category": "Colors",
+      "words": ["purple", "yellow", "orange", "brown"]
+    },
+    {
+      "category": "Sports",
+      "words": ["football", "tennis", "basketball", "cricket"]
+    },
+    {
       "category": "Countries",
-      "words": ["france", "brazil", "japan", "canada"]
+      "words": ["canada", "germany", "india", "mexico"]
     }
   ],
 
   "hard": [
     {
+      "category": "Fruits",
+      "words": ["pineapple", "strawberry", "watermelon", "blueberry", "pomegranate"]
+    },
+    {
+      "category": "Animals",
+      "words": ["kangaroo", "alligator", "rhinoceros", "chimpanzee", "leopard"]
+    },
+    {
+      "category": "Colors",
+      "words": ["turquoise", "magenta", "crimson", "indigo", "violet"]
+    },
+    {
       "category": "Sports",
-      "words": ["football", "tennis", "cricket", "golf", "basketball"]
+      "words": ["badminton", "volleyball", "baseball", "handball", "wrestling"]
+    },
+    {
+      "category": "Countries",
+      "words": ["argentina", "portugal", "thailand", "switzerland", "australia"]
     }
   ]
 }

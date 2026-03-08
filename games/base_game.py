@@ -4,21 +4,22 @@ import os
 class Game:
     levels = ["Easy", "Medium", "Hard"]
 
-    def __init__(self):
+    def __init__(self,username):
+        self.username=username
         self.level = "Easy" 
         self.score = 0
 
 
     def display_header(self,name_of_game:str, attempts=None):
         """
-        This function displays the game header including the game name,
-        current level, score, and optionally the remaining attempts.
-        ---------------
-        name_of_game : str
-            The name of the game displayed at the top of the header.
-        attempts : int, optional
-            The number of attempts left. If provided, it will be displayed.
-        """
+    Displays the game header with the game name, level, score,
+    and optionally the remaining attempts.
+    ---------------
+    name_of_game : str
+        Name of the game shown in the header.
+    attempts : int, optional
+        Remaining attempts to display.
+    """
         print("_"*35)
         print(name_of_game.center(35))
         print("_"*35)
@@ -39,27 +40,25 @@ class Game:
 
     def incorrect(self, attempts):
         """
-    This function displays a message when the user's answer is incorrect
-    and shows the remaining attempts.
+    Displays a message for an incorrect answer and shows remaining attempts.
     ---------------
     attempts : int
-        The number of attempts left after the incorrect answer.
+        Number of attempts left.
     """
         print("Incorrect!")
         print(f"Attempts Left: {attempts}")
 
     def choose_level(self,easy_level,medium_level,hard_level):
-        '''
-        This function displays a menu for the user to choose a level
-        (Easy, Medium, Hard) and calls the corresponding function.
-        ---------------
-        easy_level : callable
-        Function to execute when the user selects the Easy level.
-        medium_level : callable
-        Function to execute when the user selects the Medium level.
-        hard_level : callable
-        Function to execute when the user selects the Hard level.
-        '''
+        """
+Displays a menu to choose a level and runs the selected level function.
+---------------
+easy_level : callable
+    Function executed for Easy level.
+medium_level : callable
+    Function executed for Medium level.
+hard_level : callable
+    Function executed for Hard level.
+"""
         menu_level = '''
 Select a level:
 1- Easy
@@ -91,13 +90,13 @@ Select a level:
 
     def get_choice(self, message, valid_choices):
         """
-This function asks the user a question and ensures the input
-matches one of the valid choices.
+Gets input from the user and checks that it matches
+one of the valid choices.
 ---------------
 message : str
-    The question displayed to the user.
+    The question shown to the user.
 valid_choices : list
-    The allowed inputs the user can enter.
+    Allowed user inputs.
 """
 
         while True:
@@ -137,14 +136,13 @@ valid_choices : list
 
     def Secound_main(self,play_screen,practice_screen):
         """
-    This function displays a menu for the user to choose a mode
-    (Play or Practice) and calls the corresponding function.
-    ---------------
-    play_screen : callable
-        Function executed when the user selects Play mode.
-    practice_screen : callable
-        Function executed when the user selects Practice mode.
-    """
+Displays a menu to choose a mode and runs the selected function.
+---------------
+play_screen : callable
+    Function executed for Play mode.
+practice_screen : callable
+    Function executed for Practice mode.
+"""
 
         menu_mode = '''
 Select a mode
