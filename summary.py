@@ -11,7 +11,7 @@ def show_summary(username):
 
     user_games = data[username]
 
-    print("\n========= SUMMARY =========")
+    print("\n------- SUMMARY -------")
     print(f"Player: {username}")
 
     total_scores = []
