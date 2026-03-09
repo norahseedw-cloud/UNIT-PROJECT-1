@@ -1,7 +1,30 @@
 {
     "norah": {
         "Number Recall": {
-            "Easy": 1
+            "Easy": 1,
+            "Medium": 3,
+            "Hard": 3
+        },
+        "Pair Match": {
+            "Easy": 0,
+            "Medium": 6
+        },
+        "Story Recall": {
+            "Easy": 4
+        },
+        "Category Recall": {
+            "Easy": 2
+        }
+    },
+    "reem": {
+        "Number Recall": {
+            "Easy": 2,
+            "Hard": 2
+        }
+    },
+    "sarah": {
+        "Number Recall": {
+            "Easy": 4
         }
     }
 }

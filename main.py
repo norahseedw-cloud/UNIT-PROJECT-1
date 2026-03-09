@@ -1,3 +1,5 @@
+
+from colorama import Fore,Back,Style
 from games.number_recall import NumberRecall
 from games.pair_match import PairMatch
 from games.category_recall import CategoryRecall
@@ -5,7 +7,8 @@ from games.story_recall import StoryRecall
 from summary import show_summary
 
 
-username=input("Welcome to (game name) \n pleas enter your name: ").strip().lower()
+
+username=input( "Welcome to " +Fore.BLUE+ "-- Memory Challenge🧠 --"+Fore.RESET+ "\npleas enter your name: ").strip().lower()
 
 
 number_recall_game = NumberRecall(username)
@@ -17,13 +20,14 @@ story_recall_game = StoryRecall(username)
 def game_screen():
 
     
-    menu = '''
-Choose the game:
-1-Number Recall
-2-Pair Match
-3-Category Recall
-4-Story Recall
-5-Back
+    menu = f'''
+{Fore.BLUE}Choose the game: {Fore.RESET}
+------------
+{Fore.YELLOW}1{Style.RESET_ALL} - Number Recall
+{Fore.YELLOW}2{Style.RESET_ALL} - Pair Match
+{Fore.YELLOW}3{Style.RESET_ALL} - Category Recall
+{Fore.YELLOW}4{Style.RESET_ALL} - Story Recall
+{Fore.YELLOW}5{Style.RESET_ALL} - Back
 '''
 
     while True:
@@ -49,11 +53,12 @@ Choose the game:
                 print("Enter a valid number")
 
 
-menu = '''
-Main menu:
-1-Play games
-2-View summary
-3-Exit
+menu = f'''
+{Fore.CYAN}🎮 Main Menu{Style.RESET_ALL}
+------------
+{Fore.YELLOW}1{Style.RESET_ALL} - Play Games
+{Fore.YELLOW}2{Style.RESET_ALL} - View Summary
+{Fore.YELLOW}3{Style.RESET_ALL} - Exit
 '''
 
 
@@ -68,7 +73,8 @@ while True:
             show_summary(username)
 
         case "3":
+            print("Goodbye! 👋")
             break
 
         case _:
-            print("Enter a valid number")
+            print(Fore.RED+ "Enter a valid number"+Fore.RESET)

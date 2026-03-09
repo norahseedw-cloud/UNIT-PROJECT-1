@@ -1,5 +1,6 @@
 import time
 import os
+from colorama import Fore,Back
 
 class Game:
     levels = ["Easy", "Medium", "Hard"]
@@ -7,7 +8,14 @@ class Game:
     def __init__(self,username):
         self.username=username
         self.level = "Easy" 
-        self.score = 0
+        self._score = 0
+
+    
+    def set_score(self):
+        self._score +=1
+
+    def get_score(self):
+        return self._score
 
 
     def display_header(self,name_of_game:str, attempts=None):
@@ -21,32 +29,15 @@ class Game:
         Remaining attempts to display.
     """
         print("_"*35)
-        print(name_of_game.center(35))
+        print(f"{Fore.BLUE}{name_of_game.center(35)}{Fore.RESET}")
         print("_"*35)
-        print(f"Level: {self.level}")
-        print(f"Score: {self.score}")
+        print(f"{Fore.CYAN}Level:{Fore.RESET} {self.level}")
+        print(f"{Back.GREEN}Score:{Back.RESET} {self._score}")
         if attempts is not None:
-            print(f"Attempts Left: {attempts}")
+            print(f"{Fore.RED}Attempts Left: {Fore.RESET}{attempts}")
             print("-"*35)
 
-    def correct(self):
-        """
-    Increases the player's score by one when the answer is correct.
-    Then displays a confirmation message and the updated score.
-    """
-        self.score += 1
-        print("Correct!")
-        print(f"Score: {self.score}")
-
-    def incorrect(self, attempts):
-        """
-    Displays a message for an incorrect answer and shows remaining attempts.
-    ---------------
-    attempts : int
-        Number of attempts left.
-    """
-        print("Incorrect!")
-        print(f"Attempts Left: {attempts}")
+   
 
     def choose_level(self,easy_level,medium_level,hard_level):
         """
@@ -59,12 +50,13 @@ medium_level : callable
 hard_level : callable
     Function executed for Hard level.
 """
-        menu_level = '''
-Select a level:
-1- Easy
-2- Medium
-3- Hard
-4- Back 
+        menu_level = f'''
+{Fore.BLUE}Select a level: {Fore.RESET}
+------------
+{Fore.YELLOW}1{Fore.RESET} - Easy
+{Fore.YELLOW}2{Fore.RESET} - Medium
+{Fore.YELLOW}3{Fore.RESET} - Hard
+{Fore.YELLOW}4{Fore.RESET} - Back 
 '''
         while True:
 
@@ -86,7 +78,7 @@ Select a level:
                     break
 
                 case _:
-                    print("Enter a valid number")
+                    print(Fore.RED+"Enter a valid number"+Fore.RESET)
 
     def get_choice(self, message, valid_choices):
         """
@@ -104,7 +96,7 @@ valid_choices : list
                 choice = input(message).strip().lower()
 
                 if choice not in valid_choices:
-                    raise Exception(f"Please enter one of these: {', '.join(valid_choices)}")
+                    raise Exception(f"{Fore.RED}Please enter one of these: {Fore.RESET}{', '.join(valid_choices)}")
 
                 return choice
 
@@ -121,7 +113,7 @@ valid_choices : list
         The number of seconds for the countdown.
     """
         for n in range(seconds, 0, -1):
-            print(f"\rTime left: {n}", end="")
+            print(f"\rTime left: {Fore.YELLOW}{n}{Fore.RESET}", end="")
             time.sleep(1)
         print()
 
@@ -144,12 +136,12 @@ practice_screen : callable
     Function executed for Practice mode.
 """
 
-        menu_mode = '''
-Select a mode
+        menu_mode = f'''
+{Fore.BLUE}Select a mode{Fore.RESET}
 ------------
-1- Play (Score will be saved)
-2- Practice (Score will not be saved)
-3- Back
+{Fore.YELLOW}1{Fore.RESET} - Play (Score will be saved)
+{Fore.YELLOW}2{Fore.RESET} - Practice (Score will not be saved)
+{Fore.YELLOW}3{Fore.RESET} - Back
 '''
 
         while True:

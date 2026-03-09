@@ -1,5 +1,6 @@
 import json
 import random
+from colorama import Back,Fore,Style
 from games.base_game import Game
 from storage import save_score
 
@@ -13,15 +14,16 @@ class StoryRecall(Game):
             self.stories = json.load(file)
 
 
-    def show_story(self, story):
+    def show_story(self, story, show_header=True):
         """
-Displays the story for the player to memorize.
----------------
-story : str
-    The story shown to the player.
-"""
+    Displays the story for the player to memorize.
+    ---------------
+    story : str
+        The story shown to the player.
+    """
 
-        self.display_header("Story Recall")
+        if show_header:
+            self.display_header("Story Recall")
 
         print("\nMemorize this story:\n")
         print(story)
@@ -30,39 +32,57 @@ story : str
         self.clear_screen()
 
 
-    def ask_questions(self, questions):
+    def ask_questions(self, questions, show_header=True):
         """
-Asks the player questions about the memorized story.
----------------
-questions : list
-    List of questions and their correct answers.
-"""
+    Asks the player questions about the memorized story.
+    ---------------
+    questions : list
+        List of questions and their correct answers.
+    """
 
         for q in questions:
 
-            while True:
+            attempts = 3
 
-                self.display_header("Story Recall")
+            while attempts > 0:
+
+                if show_header:
+                    self.display_header("Story Recall", attempts)
 
                 answer = input(q["question"] + " ").strip().lower()
 
                 if answer == "":
-                    print("Answer cannot be empty!")
+                    print(Fore.RED + "Answer cannot be empty!" + Fore.RESET)
                     continue
 
                 if answer.isdigit():
-                    print("Please enter words only!")
+                    print(Fore.RED + "Please enter words only!" + Fore.RESET)
                     continue
 
-                break
+                if answer == q["answer"].lower():
+                    print(Fore.GREEN + "Correct! ✅" + Fore.RESET)
+                    self.set_score()
+                    break
 
-            if answer == q["answer"].lower():
-                print("Correct!")
-                self.score += 1
-            else:
-                print(f"Wrong! Correct answer: {q['answer']}")
+                attempts -= 1
 
-            input("\nPress Enter to continue...")
+                if attempts > 0:
+                    print(Fore.RED + "Incorrect! Try again.. ❌" + Fore.RESET)
+                else:
+                    print(Fore.RED + "You have used all your attempts!" + Fore.RESET)
+                    print(Fore.YELLOW + f"The correct answer was {q['answer']}" + Fore.RESET)
+
+            while True:
+                try:
+                    play_again = input("\nPress Enter to continue... ")
+
+                    if play_again != "":
+                        raise ValueError(Fore.RED+"Please press Enter only!"+Fore.RESET)
+
+                    break
+
+                except ValueError as e:
+                    print(Fore.RED + str(e) + Fore.RESET)
             self.clear_screen()
 
 
@@ -74,11 +94,11 @@ difficulty : str
     The selected difficulty level for the story.
 """
 
-        self.score = 0
+        self._score = 0
 
         while True:
             try:
-                choice = input("Press Enter to start \n(Enter 0 to go back)\n> ")
+                choice = input(f"Press Enter to start \n{Fore.RED}(Enter 0 to go back)\n{Fore.RESET} ")
 
                 if choice == "":
                     break
@@ -86,7 +106,7 @@ difficulty : str
                 if choice == "0":
                     return
 
-                raise ValueError("Please enter a valid input")
+                raise ValueError(Fore.RED+"Please enter a valid input"+Fore.RED)
 
             except ValueError as e:
                 print(e)
@@ -95,7 +115,7 @@ difficulty : str
 
         while True:
 
-            print(f"\n--- Round {round_number} ---")
+            print(f"{Fore.BLUE}\n--- Round {round_number} ---{Fore.RESET}")
 
             story_data = random.choice(self.stories[difficulty])
 
@@ -109,14 +129,14 @@ difficulty : str
             self.clear_screen()
             self.display_header("Story Recall")
 
-            print(f"Your score: {self.score}\n")
+            print(f"{Fore.GREEN}Your score:{Fore.RESET} {self.get_score()}")
 
-            choice = self.get_choice("Play another round? (y/n):  ", ["y", "n"])
+            choice = self.get_choice(f"{Fore.MAGENTA}Play another round? (y/n):{Fore.RESET} ", ["y", "n"])
 
             if choice == "n":
-                print(f"\nFinal score: {self.score}")
-                save_score(self.username, "Story Recall", self.level,self.score)
-                print("Thanks for playing!")
+                print(f"\nFinal score: {self.get_score()}")
+                save_score(self.username, "Story Recall", self.level,self.get_score())
+                print(Fore.MAGENTA+Style.DIM+"Thanks for playing!"+Style.RESET_ALL)
                 break
 
             round_number += 1
@@ -139,12 +159,15 @@ difficulty : str
 
     def practice(self):
 
-        print("--- Practice Mode ---")
-        print("You will read a short story.")
-        print("Try to remember the details.\n")
+        print(Fore.BLUE + "--- Practice Mode ---" + Fore.RESET)
+        print(f"""{Fore.GREEN}
+You will read a short story.
+Try to remember the details.
+    {Fore.RESET}""")
+
         while True:
             try:
-                choice = input("Press Enter to start \n(Enter 0 to go back)\n ")
+                choice = input(f"Press Enter to start \n{Fore.RED}(Enter 0 to go back)\n {Fore.RESET}")
 
                 if choice == "":
                     break
@@ -152,18 +175,17 @@ difficulty : str
                 if choice == "0":
                     return
 
-                raise Exception("Please enter a valid input")
+                raise Exception(Fore.RED + "Please enter a valid input" + Fore.RESET)
 
             except Exception as e:
                 print(e)
 
         story_data = random.choice(self.stories["easy"])
 
-        self.show_story(story_data["story"])
+        self.show_story(story_data["story"], False)
+        self.ask_questions(story_data["questions"], False)
 
-        self.ask_questions(story_data["questions"])
-
-        print("Practice finished!")
+        print(Fore.BLUE + Style.DIM + "Practice finished!" + Style.RESET_ALL)
 
 
     def display_game(self):

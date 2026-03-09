@@ -1,4 +1,5 @@
 import random
+from colorama import Back,Fore,Style
 from games.base_game import Game
 from storage import save_score
 
@@ -21,7 +22,7 @@ count : int
         self.pairs_dict = dict(zip(selected_letters, numbers)) # To add two together 
 
         for letter, number in self.pairs_dict.items():
-            print(f"{letter} - {number}")
+            print(f"{Fore.YELLOW}{letter} -{Fore.RESET} {number}")
 
 
     def play_level(self, count):
@@ -34,7 +35,7 @@ count : int
     """
         while True:
             try:
-                choice = input("Press Enter to start \n(Enter 0 to go back)\n ")
+                choice = input(f"Press Enter to start \n{Fore.RED}(Enter 0 to go back)\n{Fore.RESET} ")
 
                 if choice == "":
                     break  
@@ -42,7 +43,7 @@ count : int
                 if choice == "0":
                     return 
 
-                raise ValueError("Please enter a valid input")
+                raise ValueError(Fore.RED+"Please enter a valid input"+Fore.RESET)
 
             except ValueError as e:
                 print(e)
@@ -51,7 +52,7 @@ count : int
 
         while True:
 
-            print(f"\n--- Round {round_number} ---")
+            print(f"{Fore.BLUE}\n--- Round {round_number} ---{Fore.RESET}")
 
             self.pairs(count)
             self.timer(5)
@@ -72,20 +73,21 @@ count : int
                             ask = int(input(f"What number was with {letter}: "))
 
                             if ask == self.pairs_dict[letter]:
-                                print(f"{letter} is correct!")
+                                print(f"{Fore.GREEN}{letter} is correct! ✅{Fore.RESET}")
                                 correct_letters[letter] = True
                                 score_this_round += 1
                             else:
-                                print(f"{letter} is incorrect!")
+                                print(f"{Fore.RED}{letter} is incorrect! ❌{Fore.RESET}")
 
                 except ValueError:
-                    print("Please enter numbers only!")
+                    print(Fore.RED+"Please enter numbers only!"+Fore.RESET)
                     continue
 
-                self.score += score_this_round
+                for _ in range(score_this_round):
+                 self.set_score()
 
                 if all(correct_letters.values()):
-                    print("All answers are correct!")
+                    print(Fore.GREEN+"All answers are correct! ✅"+Fore.RESET)
                     break
 
                 attempts -= 1
@@ -93,18 +95,18 @@ count : int
                 if attempts > 0:
                     print("Try again!")
                 else:
-                    print("Unfortunately, all your attempts have failed this round.")
+                    print(Fore.RED + "You have used all your attempts!" + Fore.RESET)
                     for letter, number in self.pairs_dict.items():
-                        print(f"{letter}: {number}")
+                        print(f"{Fore.YELLOW}{letter}: {number}{Fore.RESET}")
 
-            print(f"Your score: {self.score}")
+            print(f"{Fore.GREEN}Your score:{Fore.RESET}{self.get_score()}")
 
-            choice = self.get_choice("Play another round? (y/n): ", ["y", "n"])
+            choice = self.get_choice(f"{Fore.MAGENTA}Play another round? (y/n):{Fore.RESET}  ", ["y", "n"])
 
             if choice == "n":
-                print(f"\nFinal score: {self.score}")
-                save_score(self.username, "Pair Match", self.level,self.score)
-                print("Thanks for playing!")
+                print(f"\nFinal score: {self.get_score()}")
+                save_score(self.username, "Pair Match", self.level,self.get_score())
+                print(Fore.MAGENTA+Style.DIM+"Thanks for playing!"+Style.RESET_ALL)
                 break
 
             round_number += 1
@@ -124,45 +126,49 @@ count : int
 
     def practice(self):
 
-        print("--- Practice Mode ---")
-        print("You will see letters with numbers for a few seconds.")
-        print("Try to remember the number with each letter.")
-        print("After the screen clears, type the correct number.\n")
+        print(Fore.BLUE + "--- Practice Mode ---" + Fore.RESET)
+        print(f''' {Fore.GREEN}
+You will see letters with numbers for a few seconds.
+Try to remember the number with each letter.
+After the screen clears, type the correct number.
+    {Fore.RESET}''')
+
         while True:
             try:
-                choice = input("Press Enter to start \n(Enter 0 to go back)\ ")
+                choice = input(f"Press Enter to start \n{Fore.RED}(Enter 0 to go back)\n {Fore.RESET}")
 
                 if choice == "":
-                    break   
+                    break
 
                 if choice == "0":
-                    return  
+                    return
 
-                raise Exception("Please enter a valid input")
+                raise Exception(Fore.RED + "Please enter a valid input" + Fore.RESET)
 
             except Exception as e:
                 print(e)
 
-
-        self.pairs(2)  
+        self.pairs(2)
         self.timer(5)
         self.clear_screen()
 
-        try:
-            for letter in self.pairs_dict:
+        for letter in self.pairs_dict:
 
-                ask = int(input(f"What number was with {letter}: "))
+            while True:
+                try:
+                    ask = int(input(f"What number was with {letter}: "))
+                    break
 
-                if ask == self.pairs_dict[letter]:
-                    print(f"{letter} is correct!")
-                else:
-                    print(f"{letter} is incorrect!")
-                    print(f"The correct number was {self.pairs_dict[letter]}")
+                except ValueError:
+                    print(Fore.RED + "Please enter numbers only!" + Fore.RESET)
 
-        except ValueError:
-            print("Please enter numbers only!")
+            if ask == self.pairs_dict[letter]:
+                print(f"{Fore.GREEN}{letter} is correct! ✅{Fore.RESET}")
+            else:
+                print(f"{Fore.RED}{letter} is incorrect!{Fore.RESET}")
+                print(f"{Fore.YELLOW}The correct number was {self.pairs_dict[letter]}{Fore.RESET}")
 
-        print("Practice finished!") 
+        print(Fore.BLUE + Style.DIM + "Practice finished!" + Style.RESET_ALL)
 
     def display_game(self):
         
