@@ -8,16 +8,16 @@
       ]
     },
     {
-      "story": "Sara has a small cat named Luna. Every morning Luna waits near the door.",
+      "story": "Ghadi has a small cat named Luna. Every morning Luna waits near the door.",
       "questions": [
         {"question": "What is the cat's name?", "answer": "luna"},
         {"question": "Where does Luna wait?", "answer": "door"}
       ]
     },
     {
-      "story": "Ahmed likes to read books before sleeping. His favorite place is the living room.",
+      "story": "Adam likes to read books before sleeping. His favorite place is the living room.",
       "questions": [
-        {"question": "What does Ahmed like to do?", "answer": "read"},
+        {"question": "What does Adam like to do?", "answer": "read"},
         {"question": "Where does he read?", "answer": "living room"}
       ]
     }
@@ -25,9 +25,9 @@
 
   "medium": [
     {
-      "story": "Yesterday Sara went to the library to study for her exam. She borrowed two books and studied for three hours.",
+      "story": "Yesterday Reem went to the library to study for her exam. She borrowed two books and studied for three hours.",
       "questions": [
-        {"question": "Where did Sara go?", "answer": "library"},
+        {"question": "Where did Reem go?", "answer": "library"},
         {"question": "How many books did she borrow?", "answer": "two"},
         {"question": "How long did she study?", "answer": "three hours"}
       ]
@@ -70,9 +70,9 @@
       ]
     },
     {
-      "story": "Omar traveled to Dubai for a business meeting. After the meeting he visited a museum and ate dinner at a restaurant.",
+      "story": "Waleed traveled to Dubai for a business meeting. After the meeting he visited a museum and ate dinner at a restaurant.",
       "questions": [
-        {"question": "Where did Omar travel?", "answer": "dubai"},
+        {"question": "Where did Waleed travel?", "answer": "dubai"},
         {"question": "Why did he travel?", "answer": "meeting"},
         {"question": "Where did he go after the meeting?", "answer": "museum"},
         {"question": "Where did he eat dinner?", "answer": "restaurant"}

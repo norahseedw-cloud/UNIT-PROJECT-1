@@ -8,7 +8,7 @@ from summary import show_summary
 
 
 
-username=input( "Welcome to " +Fore.BLUE+ "-- Memory Challenge🧠 --"+Fore.RESET+ "\npleas enter your name: ").strip().lower()
+username=input( "Welcome to " +Fore.BLUE+ "-- Memory Challenge 🧠 --"+Fore.RESET+ "\npleas enter your name: ").strip().lower()
 
 
 number_recall_game = NumberRecall(username)
@@ -47,7 +47,7 @@ def game_screen():
                 story_recall_game.play()
 
             case "5":
-                break
+                return
 
             case _:
                 print("Enter a valid number")

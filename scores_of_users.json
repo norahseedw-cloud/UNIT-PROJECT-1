@@ -1,7 +1,7 @@
 {
     "norah": {
         "Number Recall": {
-            "Easy": 1,
+            "Easy": 0,
             "Medium": 3,
             "Hard": 3
         },
@@ -10,7 +10,7 @@
             "Medium": 6
         },
         "Story Recall": {
-            "Easy": 4
+            "Easy": 2
         },
         "Category Recall": {
             "Easy": 2
@@ -25,6 +25,18 @@
     "sarah": {
         "Number Recall": {
             "Easy": 4
+        }
+    },
+    "ghdo": {
+        "Category Recall": {
+            "Medium": 4
+        },
+        "Number Recall": {
+            "Easy": 1,
+            "Hard": 1
+        },
+        "Story Recall": {
+            "Easy": 2
         }
     }
 }

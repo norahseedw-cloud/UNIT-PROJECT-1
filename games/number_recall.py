@@ -7,7 +7,7 @@ class NumberRecall(Game):
     def __init__(self, username):
         super().__init__(username)
 
-    def generate_number(self, digits):
+    def generate_number(self, digits): 
         """
     This function generates a random number with a specific number
     of digits and displays it spaced out for the user to memorize.
@@ -21,7 +21,7 @@ class NumberRecall(Game):
 
         self.number_to_remember = number
 
-        display_number = " ".join(number)  
+        display_number = " ".join(number)  # The space between numbers 
         print(f"\nRemember this number:\n{Fore.YELLOW}{display_number}{Fore.RESET}")
 
 

@@ -3,7 +3,7 @@
 ## Overview
 A terminal-based memory game that tests the player’s recall skills through four different mini-games: **Number Recall, Pair Match, Story Recall, and Word Recall**. Each game has three difficulty levels, and the player has three attempts in each level. The player’s score is calculated based on their performance in the games.
 
-## Features
+## Features & User Stories
 
 **As a player I should be able to do the following:**
 

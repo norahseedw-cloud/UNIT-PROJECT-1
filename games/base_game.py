@@ -75,7 +75,7 @@ hard_level : callable
 
                 case "4":
                     print("BACK")
-                    break
+                    return
 
                 case _:
                     print(Fore.RED+"Enter a valid number"+Fore.RESET)
@@ -157,7 +157,7 @@ practice_screen : callable
                     practice_screen()
 
                 case "3":
-                    break
+                    return
 
                 case _:
                     print("Enter a valid number")
