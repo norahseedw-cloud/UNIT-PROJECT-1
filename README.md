@@ -1,44 +1,36 @@
-# UNIT-PROJECT-1
+# Memory Challenge
 
+## Overview
+A terminal-based memory game that tests the player’s recall skills through four different mini-games: **Number Recall, Pair Match, Story Recall, and Word Recall**. Each game has three difficulty levels, and the player has three attempts in each level. The player’s score is calculated based on their performance in the games.
 
-## Based on what you’ve learned until now , create a project of your choosing (impress us with your imagination) . This project must at least satisfy the following minimum requirements :
+## Features
 
-- Must be interactive on CLI.
-- Use your coding skills in Python accurately.
-- Organize Your Code into modules & (or packages)
-- Use git & Github to track changes in your code.
+**As a player I should be able to do the following:**
 
-## Example Project :  An online Grocery Store :
+- Enter my username when the program starts.
+- View the main menu and navigate between the available options.
+- Choose one of the four memory games (**Number Recall, Pair Match, Story Recall, Word Recall**).
+- Select between **Play Mode** or **Practice Mode**.
+- Read the game instructions and see an example in **Practice Mode** without affecting the score.
+- Choose a difficulty level (**Easy, Medium, Hard**) in Play Mode.
+- Have three attempts in each level to answer.
+- Receive feedback if my answer is correct or incorrect.
+- Earn points based on my performance.
+- View a summary of my scores.
 
-#### Overview : An online store that sells fruits to customers. This online store has 2 main users. The customer and the manager of the store . Each one of them should be able to do the following tasks for the store to function properly . 
+## Usage
 
-### Features & User Stories
-#### As a customer I should be able to do the following :
-- Browse  Products . 
-- View the product info (summary, specs, price, quantity , etc.)
-- Search for Products.
-- Get recommendations for my next purchase based on my purchase history.
-- Add Products to the shopping cart .
-- Remove a product from the shopping cart.
-- List the products in my shopping cart. 
-- Continue to checkout . 
-- Fill in my address for delivery.
-- Get receipt of my purchases.
-- Check delivery status . 
+Run the program:
 
+```bash
+python main.py
+```
 
-
-#### Usage :
- Explain to the user how to use your project . 
- for example:
- - type in search product_name to search for a product.
- - type in list_products to show all the products in the grocery.
- - type in show product_name to get information about this product.
- - type in buy product_name to buy the product . 
- - and so on...
-
-
-### For your project. Edit this README.md file to include your own project name,  overview, user stories, and usage. 
-
-### NOTE: before submitting the final project, please do the following command:
-`pip freeze > requirements.txt` to enable use to know & use the packages used in your project.
+- Enter your **username** when prompted.
+- From the **main menu**, choose:
+  - **Play Games** to start playing.
+  - **View Summary** to see your scores.
+  - **Exit** to close the program.
+- Select one of the available memory games.
+- Choose **Play Mode** to play and earn score, or **Practice Mode** to read the instructions and try an example without affecting the score.
+- Follow the instructions on the screen and enter your answers when prompted.
